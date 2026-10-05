@@ -1,57 +1,61 @@
-<!-- @format -->
+# Information Retrieval: Practical Work (TPs)
 
-# 🧠 Information Retrieval (RI) – TPs
+Lab sessions for the Information Retrieval module, from text preprocessing and term weighting to retrieval models. The final project that builds on these labs is in a separate repository: [Information-Retrival-Project](https://github.com/sarahmoussaoui/Information-Retrival-Project).
 
----
+## Repository structure
 
-## 🔹 TF (Term Frequency)
+```
+.
+├── Collection/                       # Test collection
+├── Documents/                        # Sample documents
+├── LAB0+1/                           # Lab 0 and 1
+├── LAB2/                             # Lab 2
+├── LAB3/                             # Lab 3
+├── LAB4/                             # Lab 4
+├── lab2_language_models_results.txt  # Output of the Lab 2 language-model experiments
+├── notes.txt                         # Working notes
+└── README.md
+```
 
-**Definition:**  
-TF measures how frequently a term appears in a document.
+## Core concepts
 
-**Formula:**
+### TF (Term Frequency)
 
-**TF(t, d) = (Number of times term t appears in document d) / (Total number of terms in document d)**
+How often a term appears in a document.
 
-**Intuition:**  
-Common words in a document get higher TF values.
+```
+TF(t, d) = (occurrences of t in d) / (total terms in d)
+```
 
-**Example:**  
-Document: “the cat sat on the mat”  
-→ TF("cat") = 1 / 6 = **0.1667**
+Example: in "the cat sat on the mat", TF("cat") = 1/6 ≈ 0.1667.
 
----
+### IDF (Inverse Document Frequency)
 
-## 🔹 IDF (Inverse Document Frequency)
+How rare a term is across the corpus.
 
-**Definition:**  
-IDF measures how unique or rare a term is across all documents in a corpus.
+```
+IDF(t) = log(N / df_t)
+```
 
-**Formula:**
+where `N` is the number of documents and `df_t` the number of documents containing `t`. Common words ("the", "and") get a low IDF, rare words a high one.
 
-**IDF(t) = log( N / dfₜ )**
+### TF-IDF
 
-Where:
+```
+TF-IDF(t, d) = TF(t, d) × IDF(t)
+```
 
-- **N** = total number of documents
-- **dfₜ** = number of documents containing term _t_
+High when a term is frequent in a document but rare in the collection, which makes it a good keyword indicator.
 
-**Intuition:**
+## Getting started
 
-- Words appearing in many documents (like “the”, “and”, “is”) get **low IDF** (less informative).
-- Rare words get **high IDF** (more informative).
+```bash
+git clone https://github.com/sarahmoussaoui/Information-Retrival-Practical-Work.git
+cd Information-Retrival-Practical-Work
 
----
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+```
 
-## 🔹 TF-IDF (Term Frequency – Inverse Document Frequency)
+Install the packages the labs import (for example `numpy`, `scipy`, `scikit-learn`, `nltk`), then run the scripts or notebooks of the lab you want from its folder.
 
-**Definition:**  
-TF-IDF combines both TF and IDF to measure how important a term is to a document in a collection.
-
-**Formula:**
-
-**TF-IDF(t, d) = TF(t, d) × IDF(t)**
-
-**Intuition:**  
-High when a term is frequent in a document but rare in the corpus.  
-Helps identify keywords that best represent each document.
